@@ -10,7 +10,7 @@ final class ChatViewModel {
     private(set) var errorMessage: String?
 
     private let modelContext: ModelContext
-    private var session: LanguageModelSession?
+    private var sessions: [UUID: LanguageModelSession] = [:]
     private let authManager: AuthenticationManager?
     private var currentTask: Task<Void, Never>?
 
@@ -64,14 +64,16 @@ final class ChatViewModel {
                 return
             }
 
-            let session = LanguageModelSession(model: languageModel)
-            self.session = session
+            let session: LanguageModelSession
+            if let existingSession = sessions[chat.id] {
+                session = existingSession
+            } else {
+                session = LanguageModelSession(model: languageModel)
+                sessions[chat.id] = session
+            }
 
-            let prompt = chat.messages
-                .map { message in
-                    "\(message.isUser ? "User" : "Assistant"): \(message.content)"
-                }
-                .joined(separator: "\n\n")
+            // Only send the latest user message; the session's transcript maintains prior context
+            let prompt = chat.messages.last { $0.isUser }?.content ?? ""
 
             // Create an assistant message immediately and update its content as we stream
             let createdAssistantMessage = Message(content: "", isUser: false)
@@ -214,6 +216,7 @@ final class ChatViewModel {
     }
 
     func deleteChat(_ chat: Chat) {
+        sessions[chat.id] = nil
         modelContext.delete(chat)
 
         do {
