@@ -2,15 +2,6 @@
   "originHash" : "13a6da2245d6d2b52caae6a2cf4645c5825091eefac7fc8e918428e1ba62204b",
   "pins" : [
     {
-      "identity" : "anylanguagemodel",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mattt/AnyLanguageModel",
-      "state" : {
-        "branch" : "main",
-        "revision" : "e6fda0ee021cc224c0fe627beb895d3f070a5369"
-      }
-    },
-    {
       "identity" : "eventsource",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattt/EventSource.git",

@@ -18,8 +18,8 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/mattt/AnyLanguageModel", 
-            branch: "main", 
+            url: "https://github.com/mattt/AnyLanguageModel.git",
+            from: "0.5.0",
             traits: [
                 .trait(name: "MLX"),
             ]
