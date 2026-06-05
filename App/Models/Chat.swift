@@ -20,6 +20,12 @@ final class Chat {
                 return .mlx(modelIdentifier ?? "")
             case "huggingFace":
                 return .huggingFace(modelIdentifier ?? "")
+            case "openAI":
+                return .openAI(modelIdentifier ?? "")
+            case "claude":
+                return .claude(modelIdentifier ?? "")
+            case "azure":
+                return .azure(modelIdentifier ?? "")
             default:
                 return .system
             }
@@ -34,6 +40,15 @@ final class Chat {
                 modelIdentifier = id
             case .huggingFace(let id):
                 modelType = "huggingFace"
+                modelIdentifier = id
+            case .openAI(let id):
+                modelType = "openAI"
+                modelIdentifier = id
+            case .claude(let id):
+                modelType = "claude"
+                modelIdentifier = id
+            case .azure(let id):
+                modelType = "azure"
                 modelIdentifier = id
             }
         }

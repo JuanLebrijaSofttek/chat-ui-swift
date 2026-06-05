@@ -93,6 +93,90 @@ struct MessageComposerView: View {
                             }
                         }
                     }
+
+                    Divider()
+
+                    Text("OpenAI")
+
+                    ForEach(openAIModels, id: \.id) { modelInfo in
+                        Button {
+                            if let chat {
+                                chat.updateModel(.openAI(modelInfo.id))
+                                try? modelContext.save()
+                            } else {
+                                self.model = .openAI(modelInfo.id)
+                            }
+                        } label: {
+                            Image(systemName: "sparkle")
+                            Text(modelInfo.name)
+                            Text(modelInfo.id)
+                            let isSelected =
+                                if case .openAI(let selectedId) = self.model {
+                                    selectedId == modelInfo.id
+                                } else {
+                                    false
+                                }
+                            if isSelected {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+
+                    Divider()
+
+                    Text("Claude")
+
+                    ForEach(claudeModels, id: \.id) { modelInfo in
+                        Button {
+                            if let chat {
+                                chat.updateModel(.claude(modelInfo.id))
+                                try? modelContext.save()
+                            } else {
+                                self.model = .claude(modelInfo.id)
+                            }
+                        } label: {
+                            Image(systemName: "brain")
+                            Text(modelInfo.name)
+                            Text(modelInfo.id)
+                            let isSelected =
+                                if case .claude(let selectedId) = self.model {
+                                    selectedId == modelInfo.id
+                                } else {
+                                    false
+                                }
+                            if isSelected {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+
+                    Divider()
+
+                    Text("Azure OpenAI")
+
+                    ForEach(azureDeployments, id: \.id) { modelInfo in
+                        Button {
+                            if let chat {
+                                chat.updateModel(.azure(modelInfo.id))
+                                try? modelContext.save()
+                            } else {
+                                self.model = .azure(modelInfo.id)
+                            }
+                        } label: {
+                            Image(systemName: "cloud")
+                            Text(modelInfo.name)
+                            Text(modelInfo.id)
+                            let isSelected =
+                                if case .azure(let selectedId) = self.model {
+                                    selectedId == modelInfo.id
+                                } else {
+                                    false
+                                }
+                            if isSelected {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
                 } label: {
                     Text(model.shortName)
                         .font(.caption)
@@ -129,6 +213,28 @@ struct MessageComposerView: View {
             (id: "Qwen/Qwen2.5-72B-Instruct", name: "Qwen 2.5 72B"),
             (id: "mistralai/Mistral-7B-Instruct-v0.3", name: "Mistral 7B"),
             (id: "google/gemma-2-9b-it", name: "Gemma 2 9B"),
+        ]
+    }
+
+    private var openAIModels: [(id: String, name: String)] {
+        [
+            (id: "gpt-4o", name: "GPT-4o"),
+            (id: "gpt-4o-mini", name: "GPT-4o mini"),
+            (id: "o3-mini", name: "o3 mini"),
+        ]
+    }
+
+    private var claudeModels: [(id: String, name: String)] {
+        [
+            (id: "claude-opus-4-8", name: "Claude Opus 4"),
+            (id: "claude-sonnet-4-6", name: "Claude Sonnet 4"),
+            (id: "claude-haiku-4-5-20251001", name: "Claude Haiku 4"),
+        ]
+    }
+
+    private var azureDeployments: [(id: String, name: String)] {
+        [
+            (id: "gpt-4.1-mini", name: "GPT-4.1 mini (Azure)"),
         ]
     }
     

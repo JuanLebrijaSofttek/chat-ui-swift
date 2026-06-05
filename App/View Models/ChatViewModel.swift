@@ -247,6 +247,24 @@ extension Model {
                 apiKey: token,
                 model: model
             )
+        case .openAI(let model):
+            return OpenAILanguageModel(
+                apiKey: APIKeys.openAI,
+                model: model
+            )
+        case .claude(let model):
+            return AnthropicLanguageModel(
+                apiKey: APIKeys.anthropic,
+                model: model
+            )
+        case .azure(let deployment):
+            // The endpoint uses Azure's OpenAI-compatible API (/openai/v1/) which
+            // accepts standard Bearer auth — no header rewriting needed.
+            return OpenAILanguageModel(
+                baseURL: URL(string: APIKeys.azureEndpoint)!,
+                apiKey: APIKeys.azureKey,
+                model: deployment
+            )
         }
     }
 }

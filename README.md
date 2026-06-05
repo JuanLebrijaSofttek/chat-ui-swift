@@ -63,6 +63,55 @@ To use Hugging Face's Inference API:
 The app uses OAuth 2.0 to securely authenticate with Hugging Face. 
 Your access token is stored securely in the Keychain and automatically refreshed when needed.
 
+## Supported Models
+
+The app supports multiple inference backends. Use the model picker in the message composer to switch between them.
+
+### Hugging Face
+
+Routed through [Hugging Face's Inference Router](https://huggingface.co/docs/api-inference) (`router.huggingface.co/v1`), which exposes an OpenAI-compatible API. Requires signing in with your Hugging Face account.
+
+| Model | Size | Notes |
+|---|---|---|
+| Llama 3.3 Instruct | 70B | Requires HF PRO or pay-as-you-go credits |
+| Llama 3.1 Instruct | 8B | May be covered by free tier |
+| Qwen 2.5 Instruct | 72B | Requires HF PRO or pay-as-you-go credits |
+| Mistral Instruct v0.3 | 7B | May be covered by free tier |
+| Gemma 2 IT | 9B | May be covered by free tier |
+
+**Pricing:** Hugging Face provides a small free monthly credit (~$0.10–$2 depending on account type). Larger models (70B+) typically require a [PRO subscription](https://huggingface.co/pricing) ($9/month) or pay-as-you-go credits. Usage is billed to the account of the logged-in user.
+
+### OpenAI
+
+Requires an OpenAI API key set in `App/Models/APIKeys.swift`. Billed to your OpenAI account.
+
+| Model | Notes |
+|---|---|
+| GPT-4o | Most capable OpenAI model |
+| GPT-4o mini | Faster and cheaper |
+
+### Anthropic (Claude)
+
+Requires an Anthropic API key set in `App/Models/APIKeys.swift`. Billed to your Anthropic account.
+
+| Model | Notes |
+|---|---|
+| Claude Opus 4 | Most capable Claude model |
+| Claude Sonnet 4 | Balanced capability and speed |
+| Claude Haiku 4 | Fastest and most affordable |
+
+### Azure OpenAI
+
+Uses your Azure OpenAI resource endpoint and key, configured in `App/Models/APIKeys.swift`. Billed to your Azure subscription.
+
+| Model | Notes |
+|---|---|
+| GPT-4.1 mini | Deployed via Azure OpenAI Service |
+
+### Apple Intelligence
+
+On-device inference via Apple's Foundation Models framework. Requires macOS 26 or iOS 26. Free — no account or API key needed.
+
 ## Related Projects
 
 - https://github.com/huggingface/swift-chat
