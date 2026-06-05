@@ -9,5 +9,5 @@ enum APIKeysTEMPLATE {
     // Azure OpenAI — set your resource endpoint and key here
     // Endpoint format: https://<resource-name>.openai.azure.com
     static let azureEndpoint = "YOUR_AZURRE_ENDPOINT"
-    static let azureKey = "YOUR_AZURE_API_KEY
+    static let azureKey = "YOUR_AZURE_API_KEY"
 }
